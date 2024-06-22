@@ -1,0 +1,106 @@
+---
+import SocialList from "@/components/SocialList.astro";
+import PostPreview from "@/components/blog/PostPreview.astro";
+import { getAllPosts, sortMDByDate } from "@/data/post";
+import { getAllVideos } from "@/data/video";
+import PageLayout from "@/layouts/Base.astro";
+import { getFormattedDate } from "@/utils";
+import { YouTube } from "astro-embed";
+
+const MAX_POSTS = 10;
+const allPosts = await getAllPosts();
+const allPostsByDate = sortMDByDate(allPosts).slice(0, MAX_POSTS);
+const allVideos = await getAllVideos();
+
+const cactusTech: { desc: string; href: string; title: string }[] = [
+	{
+		desc: "Build fast websites, faster.",
+		href: "https://astro.build",
+		title: "Astro",
+	},
+	{
+		desc: "Rapidly build modern websites without ever leaving your HTML.",
+		href: "https://tailwindcss.com",
+		title: "Tailwind CSS",
+	},
+	{
+		desc: "Simple and easy-to-use markup language.",
+		href: "https://www.markdownguide.org/",
+		title: "Markdown",
+	},
+	{
+		desc: "Markdown for the component era.",
+		href: "https://mdxjs.com/",
+		title: "MDX",
+	},
+	{
+		desc: "Generating png Open Graph images for blog posts.",
+		href: "https://github.com/vercel/satori",
+		title: "Satori",
+	},
+	{
+		desc: "A fully static search library.",
+		href: "https://pagefind.app/",
+		title: "Pagefind",
+	},
+	{
+		desc: "An easy to use Icon component for Astro.",
+		href: "https://github.com/natemoo-re/astro-icon#readme",
+		title: "Astro Icon",
+	},
+	{
+		desc: "Highly customisable source code & syntax highlighter",
+		href: "https://expressive-code.com/",
+		title: "Expressive Code",
+	},
+];
+---
+
+<PageLayout meta={{ title: "Home" }}>
+	<section>
+		<p class="mb-4 text-xl text-accent-2">
+			My name is Michael Bleigh. I'm an engineer and a lead on the <a
+				target="_blank"
+				class="cactus-link"
+				href="https://firebase.google.com/">Firebase</a
+			> team at Google. I build software for people who build software.
+		</p>
+		<SocialList />
+	</section>
+	<section aria-label="Blog post list" class="mt-16">
+		<h2 class="title mb-4 text-xl">Posts</h2>
+		<ul class="space-y-4">
+			{
+				allPostsByDate.map((p) => (
+					<li class="grid gap-2 sm:grid-cols-[auto_1fr] sm:[&_q]:col-start-2">
+						<PostPreview post={p} />
+					</li>
+				))
+			}
+		</ul>
+	</section>
+	<section class="mt-16">
+		<h2 class="title mb-4 text-xl">Videos</h2>
+		<ul class="flex flex-wrap items-start">
+			{
+				allVideos.map((video) => (
+					<li class="mr-4 w-72 overflow-hidden">
+						<YouTube id={video.url} class="w-72 rounded-xl" />
+						<div class="mt-2 flex items-center">
+							<div class="text-xs text-accent">{getFormattedDate(video.publishDate)}</div>
+							<div class="flex-1" />
+							{video.conference && (
+								<div class="rounded bg-accent px-2 py-1 text-xs font-bold text-bgColor">
+									{video.conference}
+								</div>
+							)}
+						</div>
+						<h4 class="mt-2 h-10 overflow-hidden text-ellipsis font-bold text-accent-2">
+							{video.title}
+						</h4>
+					</li>
+				))
+			}
+		</ul>
+	</section>
+</PageLayout>
