@@ -1,4 +1,5 @@
 ---
+import FormattedDate from "@/components/FormattedDate.astro";
 import SocialList from "@/components/SocialList.astro";
 import PostPreview from "@/components/blog/PostPreview.astro";
 import { getAllPosts, sortMDByDate } from "@/data/post";
@@ -59,11 +60,15 @@ const cactusTech: { desc: string; href: string; title: string }[] = [
 <PageLayout meta={{ title: "Home" }}>
 	<section>
 		<p class="mb-4 text-xl text-accent-2">
-			My name is Michael Bleigh. I'm an engineer and a lead on the <a
+			👋 I'm Michael Bleigh. I'm an engineering lead working on the <a
 				target="_blank"
-				class="cactus-link"
-				href="https://firebase.google.com/">Firebase</a
+				class="font-bold"
+				href="https://firebase.google.com/">🔥Firebase🔥</a
 			> team at Google. I build software for people who build software.
+		</p>
+		<p class="mb-4 text-xl text-accent-2">
+			I write and speak about web development, API design, developer experience, and probably some
+			other stuff too.
 		</p>
 		<SocialList />
 	</section>
@@ -83,7 +88,7 @@ const cactusTech: { desc: string; href: string; title: string }[] = [
 		<h2 class="title mb-4 text-xl">Videos</h2>
 		<ul class="flex flex-wrap items-start">
 			{
-				allVideos.map((video) => (
+				allVideos.slice(0, 2).map((video) => (
 					<li class="mr-4 w-72 overflow-hidden">
 						<YouTube id={video.url} class="w-72 rounded-xl" />
 						<div class="mt-2 flex items-center">
@@ -96,8 +101,25 @@ const cactusTech: { desc: string; href: string; title: string }[] = [
 							)}
 						</div>
 						<h4 class="mt-2 h-10 overflow-hidden text-ellipsis font-bold text-accent-2">
-							{video.title}
+							<a class="cactus_link" href={video.url} target="_blank">
+								{video.title}
+							</a>
 						</h4>
+					</li>
+				))
+			}
+		</ul>
+		<ul class="mt-6 space-y-4">
+			{
+				allVideos.slice(2).map((video) => (
+					<li class="grid gap-2 sm:grid-cols-[auto_1fr] sm:[&_q]:col-start-2">
+						<FormattedDate
+							class="min-w-[120px] text-gray-600 dark:text-gray-400"
+							date={new Date(video.publishDate)}
+						/>
+						<a class="cactus-link" href={video.url} target="_blank">
+							{video.title}
+						</a>
 					</li>
 				))
 			}
