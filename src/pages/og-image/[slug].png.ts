@@ -35,7 +35,7 @@ const markup = (title: string, pubDate: string) =>
 			<p tw="text-2xl mb-6">${pubDate}</p>
 			<h1 tw="text-6xl font-bold leading-snug text-white">${title}</h1>
 		</div>
-		<div tw="flex items-center justify-between w-full p-10 border-t border-yellow-200 text-xl">
+		<div tw="flex items-center w-full p-10 border-t border-yellow-200 text-xl justify-end">
 			<div tw="flex items-center text-yellow-200">
 				<?xml version="1.0" encoding="utf-8"?>
 				<!-- Generator: Adobe Illustrator 26.0.3, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
@@ -101,7 +101,6 @@ const markup = (title: string, pubDate: string) =>
 
 				<p tw="ml-3 font-semibold">${siteConfig.title}</p>
 			</div>
-			<p>by ${siteConfig.author}</p>
 		</div>
 	</div>`;
 
