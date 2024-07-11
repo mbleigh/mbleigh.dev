@@ -1,7 +1,7 @@
 ---
 title: How to add natural language AI data filters to your app
 description: Firebase Genkit makes it simple to build a natural language data filter for your app that integrates with existing UI.
-publishDate: "2024-06-27"
+publishDate: "2024-07-11"
 tags: ["ai", "firebase", "genkit"]
 ---
 
@@ -77,7 +77,7 @@ users perform a "traditional" query of our product listing.
 
 ## Tool Setup: Genkit and Gemini
 
-To build our natural language filter we're going to use [Firebase Genkit](https://github.com/firebase/genkit)
+To build our natural language filter we're going to use [Firebase Genkit](https://github.com/firebase/genkit).
 Genkit is a library that makes it easy to add GenAI features to an application and provides a
 standard API that works across many model providers. For this example we'll use the **Gemini 1.5 Flash**
 model for its fast inference speed.
@@ -238,3 +238,5 @@ My favorite AI features are the ones that disappear into the application and
 feel like a natural part of the interface. Everyone is familiar with a search
 bar, but thanks to GenAI our search bar can directly manipulate a complex
 interface by better understanding our users' intent.
+
+The [full source code](https://github.com/mbleigh/genkitchen/tree/main/src/app/filter) of the demo application is available on GitHub.
