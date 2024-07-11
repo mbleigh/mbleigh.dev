@@ -31,10 +31,12 @@ const socialLinks: {
 		isWebmention: true,
 	},
 ];
+
+const { message } = Astro.props;
 ---
 
 <div class="mt-8 flex flex-wrap items-center gap-x-2 text-xl font-bold text-accent-2">
-	<p>Find me on</p>
+	<p>{message || "Find me on"}</p>
 	<ul class="flex flex-1 items-center gap-x-2 sm:flex-initial">
 		{
 			socialLinks.map(({ friendlyName, isWebmention, link, name }) => (

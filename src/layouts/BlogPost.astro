@@ -6,6 +6,7 @@ import TOC from "@/components/blog/TOC.astro";
 import WebMentions from "@/components/blog/webmentions/index.astro";
 
 import BaseLayout from "./Base.astro";
+import SocialList from "@/components/SocialList.astro";
 
 interface Props {
 	post: CollectionEntry<"post">;
@@ -31,6 +32,9 @@ const { headings } = await post.render();
 			>
 				<slot />
 				<WebMentions />
+			</div>
+			<div class="mt-8 flex justify-center border-t border-t-accent">
+				<SocialList message="Questions or comments? Find me on" />
 			</div>
 		</article>
 	</div>
