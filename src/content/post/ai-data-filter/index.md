@@ -14,7 +14,7 @@ ecommerce site with many different filter options:
 ![product filter grid](./filter_grid.png)
 
 Wouldn't it be great to offer your users the flexibility of a text search bar combined with the
-fine-grained control of a filter bar?
+fine-grained controls of a filter UI?
 
 ## The Goal: Query to Filter
 
@@ -79,7 +79,7 @@ users perform a "traditional" query of our product listing.
 
 To build our natural language filter we're going to use [Firebase Genkit](https://github.com/firebase/genkit).
 Genkit is a library that makes it easy to add GenAI features to an application and provides a
-standard API that works across many model providers. For this example we'll use the **Gemini 1.5 Flash**
+standard API that works across many model providers. For this example we'll use Google's **Gemini 1.5 Flash**
 model for its fast inference speed.
 
 You can [follow the documentation](https://firebase.google.com/docs/genkit/nextjs) to initialize
@@ -160,8 +160,8 @@ Just supply the JSON without additional text or explanation. All fields are opti
 
 A few things to note about the prompt:
 
-- Since I've already initialized the `googleAI` plugin I can reference the Gemini 1.5 Flash model just using its name.
-- I don't need to specify the exact output schema, Genkit takes care of that for me since I provided an output schema in the frontmatter of the prompt.
+- Since I've already initialized the `googleAI` plugin I can use the Gemini 1.5 Flash model by name.
+- I don't need to describe the output schema in the prompt. Genkit takes care of that for me since I provided a named schema in the frontmatter of the prompt.
 - If present, I provide the existing filter the user has selected (rendered as JSON) so that the LLM can refine a search as well as start from scratch.
 - I've added hints to help the LLM understand specific scenarios that I ran into while testing. You should expect prompts to evolve over time as you run into edge cases. Including high-quality examples is another great way to improve quality.
 
