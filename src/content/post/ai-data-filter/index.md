@@ -165,7 +165,7 @@ A few things to note about the prompt:
 - If present, I provide the existing filter the user has selected (rendered as JSON) so that the LLM can refine a search as well as start from scratch.
 - I've added hints to help the LLM understand specific scenarios that I ran into while testing. You should expect prompts to evolve over time as you run into edge cases. Including high-quality examples is another great way to improve quality.
 
-### Integrating into the app
+## Integrating into the app
 
 I'm using Next.js here, but Genkit can be used in any Node.js server environment.
 First, I'll load and call my prompt as part of a Genkit *flow*, which you can think
