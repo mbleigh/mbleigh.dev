@@ -1,7 +1,11 @@
 {
-	"hosting": {
-		"public": "dist",
-		"predeploy": "pnpm build && pnpm run postbuild",
-		"ignore": ["firebase.json", "**/.*", "**/node_modules/**"]
-	}
+  "hosting": {
+    "public": "dist",
+    "predeploy": "pnpm build && pnpm run postbuild",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ]
+  }
 }
