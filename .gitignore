@@ -1,3 +1,5 @@
+/.firebase
+
 # build output
 dist/
 .output/

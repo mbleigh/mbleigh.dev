@@ -6,6 +6,7 @@ import TOC from "@/components/blog/TOC.astro";
 import WebMentions from "@/components/blog/webmentions/index.astro";
 
 import BaseLayout from "./Base.astro";
+import SocialList from "@/components/SocialList.astro";
 
 interface Props {
 	post: CollectionEntry<"post">;
@@ -27,11 +28,28 @@ const { headings } = await post.render();
 		<article class="flex-grow break-words" data-pagefind-body>
 			<div id="blog-hero"><BlogHero content={post} /></div>
 			<div
-				class="prose prose-sm prose-cactus mt-12 prose-headings:font-semibold prose-headings:text-accent-2 prose-headings:before:absolute prose-headings:before:-ms-4 prose-headings:before:text-accent prose-headings:before:content-['#'] prose-th:before:content-none"
+				class="prose-md prose prose-cactus mt-12 prose-headings:font-semibold prose-headings:text-accent-2 prose-headings:before:absolute prose-headings:before:-ms-4 prose-headings:before:text-accent prose-headings:before:content-['#'] prose-th:before:content-none"
 			>
 				<slot />
 				<WebMentions />
 			</div>
+			<script
+				src="https://giscus.app/client.js"
+				data-repo="mbleigh/mbleigh.dev"
+				data-repo-id="R_kgDOMOHvgw"
+				data-category="Comments"
+				data-category-id="DIC_kwDOMOHvg84Cgui5"
+				data-mapping="title"
+				data-strict="0"
+				data-reactions-enabled="1"
+				data-emit-metadata="0"
+				data-input-position="bottom"
+				data-theme="dark_dimmed"
+				data-lang="en"
+				data-loading="lazy"
+				crossorigin="anonymous"
+				async
+			></script>
 		</article>
 	</div>
 	<button
