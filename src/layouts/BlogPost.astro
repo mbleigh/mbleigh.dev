@@ -33,9 +33,23 @@ const { headings } = await post.render();
 				<slot />
 				<WebMentions />
 			</div>
-			<div class="mt-8 flex justify-center border-t border-t-accent">
-				<SocialList message="Questions or comments? Find me on" />
-			</div>
+			<script
+				src="https://giscus.app/client.js"
+				data-repo="mbleigh/mbleigh.dev"
+				data-repo-id="R_kgDOMOHvgw"
+				data-category="Comments"
+				data-category-id="DIC_kwDOMOHvg84Cgui5"
+				data-mapping="title"
+				data-strict="0"
+				data-reactions-enabled="1"
+				data-emit-metadata="0"
+				data-input-position="bottom"
+				data-theme="dark_dimmed"
+				data-lang="en"
+				data-loading="lazy"
+				crossorigin="anonymous"
+				async
+			></script>
 		</article>
 	</div>
 	<button
