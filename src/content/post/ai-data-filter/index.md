@@ -239,4 +239,4 @@ feel like a natural part of the interface. Everyone is familiar with a search
 bar, but thanks to GenAI our search bar can directly manipulate a complex
 interface by better understanding our users' intent.
 
-The [full source code](https://github.com/mbleigh/genkitchen/tree/main/src/app/filter) of the demo application is available on GitHub.
+The [full source code](https://github.com/mbleigh/genkitchen/tree/main/src/filter) of the demo application is available on GitHub.
