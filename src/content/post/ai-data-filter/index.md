@@ -5,6 +5,8 @@ publishDate: "2024-07-11"
 tags: ["ai", "firebase", "genkit"]
 ---
 
+*Note:* This article was updated in January 2025 to reflect newer versions of Genkit.
+
 When building an app there's often a tradeoff between "approachable" features for most users
 and "powerful" features for expert users. A good example of this is data filtering -- if your
 app has listings with lots of different dimensions you want to expose all the options to
@@ -86,24 +88,19 @@ You can [follow the documentation](https://firebase.google.com/docs/genkit/nextj
 Genkit in your app, or you can do it manually like so:
 
 ```bash
-npm i \
-  @genkit-ai/core \
-  @genkit-ai/ai \
-  @genkit-ai/flow \
-  @genkit-ai/googleai \
-  @genkit-ai/dotprompt
+npm i genkit @genkit-ai/googleai
 ```
 
 Once you've installed the packages, you'll need to configure Genkit with the Google AI plugin
 (for access to the Gemini model) and the Dotprompt plugin (for the `.prompt` text prompt syntax):
 
 ```ts
-import { configureGenkit } from "@genkit-ai/core";
-import { dotprompt } from "@genkit-ai/dotprompt";
+import { genkit, z } from "genkit";
 import { googleAI } from "@genkit-ai/googleai";
 
-configureGenkit({
-	plugins: [dotprompt({ dir: "./prompts" }), googleAI({ apiKey: "..." })],
+const ai = genkit({
+	plugins: [googleAI({ apiKey: "..." })],
+  promptDir: './prompts',
 });
 ```
 
@@ -116,10 +113,9 @@ and since I already have my schema in Zod this is even easier. Below my
 `configureGenkit` block, I can register a named schema for use in my prompts:
 
 ```ts
-import { defineSchema } from "@genkit-ai/core";
 import { FilterSchema } from "./schema.js";
 
-defineSchema('Filter', FilterSchema);
+ai.defineSchema('Filter', FilterSchema);
 ```
 
 Next, I'll create the `prompts/productFilter.prompt` file. Genkit's Dotprompt
@@ -172,12 +168,9 @@ First, I'll load and call my prompt as part of a Genkit *flow*, which you can th
 of as a special kind of function wrapped with tracing and observability for GenAI:
 
 ```ts
-import { defineFlow } from "@genkit-ai/flow";
-import { prompt } from "@genkit-ai/dotprompt";
-import { z } from "zod";
 import { FilterSchema } from "./schema.js";
 
-const magicFilterFlow = defineFlow({
+export const magicFilterFlow = ai.defineFlow({
   name: "magicFilter",
   inputSchema: z.object({
     query: z.string(),
@@ -185,9 +178,9 @@ const magicFilterFlow = defineFlow({
   }),
   outputSchema: FilterSchema,
 }, (input) => {
-  const filterPrompt = prompt('productFilter');
-  const result = await filterPrompt.generate({input});
-  return result.output();
+  const filterPrompt = ai.prompt('productFilter');
+  const {output} = await filterPrompt.generate({input});
+  return output;
 });
 ```
 
@@ -196,16 +189,14 @@ Now I can create a server action that executes the flow:
 ```ts
 "use server"
 
-import { runFlow } from "@genkit-ai/flow";
 import { magicFilterFlow } from "./flow.js";
 import { FilterSchema } from "./schema.js";
-import { z } from "zod";
 
 export function magicFilter(input: {
   query: string,
   filter: Filter
 }): Filter {
-  return runFlow(magicFilterFlow, input);
+  return magicFilterFlow(input);
 }
 ```
 

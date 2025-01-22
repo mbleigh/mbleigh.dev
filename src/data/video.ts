@@ -13,6 +13,14 @@ export interface Video {
 
 const videos: Video[] = [
 	{
+		title: "GraphQL is for Client Developers, not Client Applications",
+		type: "talk",
+		publishDate: "2024-09-10",
+		conference: "GraphQLConf '24",
+		tags: ["firebase", "graphql", "data-connect", "security"],
+		url: "https://www.youtube.com/watch?v=dDj6FF0y2YA",
+	},
+	{
 		title: "Build gen AI features powered by your data with Firebase and PostgreSQL",
 		type: "talk",
 		publishDate: "2024-05-16",
