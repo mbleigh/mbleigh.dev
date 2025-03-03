@@ -42,7 +42,7 @@ const videos: Video[] = [
 		publishDate: "2020-10-31",
 		conference: "Firebase Summit '20",
 		tags: ["firebase", "web"],
-		url: "https://www.youtube.com/watch?v=P3jXxNBtueQ"
+		url: "https://www.youtube.com/watch?v=P3jXxNBtueQ",
 	},
 	{
 		title: "Accelerate app development with Firebase Extensions",
@@ -67,7 +67,7 @@ const videos: Video[] = [
 		conference: "Google I/O '18",
 		tags: ["web", "amp", "firebase", "performance"],
 		url: "https://www.youtube.com/watch?v=7_2CJs_VZk4",
-	}
+	},
 	{
 		title: "What's possible with Cloud Functions for Firebase",
 		type: "talk",
