@@ -5,7 +5,7 @@ publishDate: "2024-07-11"
 tags: ["ai", "firebase", "genkit"]
 ---
 
-*Note:* This article was updated in January 2025 to reflect newer versions of Genkit.
+*Note: This article was updated in January 2025 to reflect newer versions of Genkit.*
 
 When building an app there's often a tradeoff between "approachable" features for most users
 and "powerful" features for expert users. A good example of this is data filtering -- if your

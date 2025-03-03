@@ -37,6 +37,14 @@ const videos: Video[] = [
 		url: "https://www.youtube.com/watch?v=-6IinBFPKn4",
 	},
 	{
+		title: "Shipping production web apps on Firebase Hosting",
+		type: "talk",
+		publishDate: "2020-10-31",
+		conference: "Firebase Summit '20",
+		tags: ["firebase", "web"],
+		url: "https://www.youtube.com/watch?v=P3jXxNBtueQ"
+	},
+	{
 		title: "Accelerate app development with Firebase Extensions",
 		type: "talk",
 		publishDate: "2019-09-26",
@@ -53,10 +61,18 @@ const videos: Video[] = [
 		url: "https://www.youtube.com/watch?v=NwY6jkohseg",
 	},
 	{
+		title: "Build blazing fast content sites with Firebase and AMP",
+		type: "talk",
+		publishDate: "2018-05-09",
+		conference: "Google I/O '18",
+		tags: ["web", "amp", "firebase", "performance"],
+		url: "https://www.youtube.com/watch?v=7_2CJs_VZk4",
+	}
+	{
 		title: "What's possible with Cloud Functions for Firebase",
 		type: "talk",
 		publishDate: "2017-05-18",
-		conference: "Google I/O '18",
+		conference: "Google I/O '17",
 		tags: ["firebase", "serverless"],
 		url: "https://www.youtube.com/watch?v=G-MBeEW92v4",
 	},
