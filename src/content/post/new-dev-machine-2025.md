@@ -23,7 +23,7 @@ window-padding-y = 20
 
 ### Shell: ZSH with [oh-my-zsh](https://ohmyz.sh/) via [antigen](https://github.com/zsh-users/antigen)
 
-I took a look at Starship.rs because it was advertised as "super fast" but for whatever raeson that wasn't my experience - the default setup added 300-500ms of latency after a command completed before the prompt reappeared, and that bugged me. I've been using `oh-my-zsh` for nearly a decade and ultimately decided to keep doing so. It's simple, the default config tells me what I want to know. Good enough!
+I took a look at Starship.rs because it was advertised as "super fast" but for whatever reason that wasn't my experience - the default setup added 300-500ms of latency after a command completed before the prompt reappeared, and that bugged me. I've been using `oh-my-zsh` for nearly a decade and ultimately decided to keep doing so. It's simple, the default config tells me what I want to know. Good enough!
 
 ### Editor: [VS Code](https://code.visualstudio.com/)
 
