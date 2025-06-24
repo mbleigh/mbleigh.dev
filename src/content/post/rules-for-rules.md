@@ -61,7 +61,7 @@ LLMs have a real "don't think about elephants" problem. By putting something int
 
 Negative examples should only be used as a last resort, largely to prompt around stubborn API usage issues with e.g. breaking changes between major versions (see below).
 
-This is one of the hardest guidelines to follow. It's natural for us to speak in terms of "do this, not that" (this whole doc does so\!).
+This is one of the hardest guidelines to follow. It's natural for us to speak in terms of "do this, not that" (this whole post does so!).
 
 ### Model Quirks
 
