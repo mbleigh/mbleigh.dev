@@ -126,66 +126,6 @@ Links are a powerful tool in the context engineering toolbelt because of their *
 - Links are **tool-efficient** because they consolidate many types of reads into a single tool. You can have a `data://me` link that dynamically loads information about the current user, a `file://foo.md` link that loads a local file, and a `prompt://pet-help` link that returns static instructions. You don't need a separate tool for each type of data.
 - Links provide **just-in-time context** mitigating issues of context rot and recency bias in models. Because linked context is loaded when it's needed by the model the context is "fresher" instead of overloading a system prompt.
 
-## Agentic Linking Pattern Starter Pack
-
-Once I caught on to the utility of links, I started seeing opportunities to leverage them everywhere. There are many situations where having a way to offer the model "here's more data if you want it" is incredibly useful.
-
-Here are a few common patterns I'm starting to see/build for linked context:
-
-### Hierarchical Linked Context
-
-![Hierarchical Context Example Diagram](./hierarchical-context.png)
-
-Oftentimes we need to give models access to large-but-not-gigantic corpuses of data -- this could be documentation for a library, a customer support knowledge base, or a student handbook. We can organize such data into a **document hierarchy**.
-
-The hierarchy gives us a way to organize information for progressive discovery -- top-level topic docs can linked in the system prompt and, when loaded, provide overviews with answers to the most common questions. Then each doc can automatically list its children for deeper exploration.
-
-Docs can provide ad-hoc crosslinks to any other doc when contextually relevant. The hierarchy organizes the information but doesn't dictate a strict path of discovery.
-
-### Guided Workflows
-
-![Guided Workflows Example Diagram](./guided-workflows.png)
-
-Guided workflows encapsulate decision trees into step-by-step processes that models can follow. While hierarchical links are about progressively loading more and more context until the model has enough information, guided workflows are about *hiding* context until the model decides to take a particular path.
-
-If you've ever used *slash commands* in a coding agent, you've built a version of a guided workflow. Where links come into play is in keeping the context window concise and focused. Rather than providing the entire decision tree at once, links allow you to incrementally load each step:
-
-```
-1. Do something
-2. Do something else
-3. Load the next appropriate guide and follow its instructions:
-  a. If (Condition A), load `guide://condition-a`
-  b. If (Condition B), load `guide://condition-b`
-  c. If neither, tell the user you can't complete the task.
-```
-
-Using linked workflows you can greatly increase the complexity of the *overall* workflow while keeping the context of a given trajectory lean.
-
-### Detail Expansion
-
-![Detail Expansion Example Diagram](./detail-expansion.png)
-
-While the other two patterns are oriented toward "document-like" context, links are also useful for "data-like" context. So many tools end up being `list_*` and `get_*`. Once data becomes loadable via linked URIs instead of bespoke tools, you can cross-reference related items with ease. Agents can first read a "collection" link, then from the returned data understand the "detail" links for each item:
-
-```yaml
-# read_resources(["data://things"])
-- id: thing-1
-  name: Thing 1
-  description: Description of Thing 1
-  uri: data://things/thing-1
-- id: thing-2
-  name: Thing 2
-  description: Description of Thing 2
-  uri: data://things/thing-2
-
-# read_resources(["data://things/thing-1"])
-id: thing-1
-subthings:
-  - id: subthing-1
-    name: Subthing 1
-    uri: data://things/thing-1/subthings/subthing-1
-```
-
 ## MCP Resources: The future is now(ish)
 
 To make link-based context engineering a universal feature, we need a way to provide the linked content to the model. Many agents (and some model APIs) have built in various forms of "fetch URL" or "search the web" tools that can automatically fetch data from public sources. But the content we want to link might not always be available on the public internet.
@@ -206,7 +146,7 @@ The [Firebase MCP Server](https://firebase.google.com/docs/ai-assistance/mcp-ser
 
 1. We added support for MCP Resources to the Firebase MCP Server.
 1. We created a [read_resources](https://github.com/firebase/firebase-tools/blob/master/src/mcp/tools/core/read_resources.ts) MCP tool that was capable of reading resources (from the Firebase MCP Server only).
-1. We created [an MCP prompt](https://github.com/firebase/firebase-tools/blob/master/src/mcp/prompts/core/init.ts) that uses the "guided workflow" pattern to walk the model step-by-step through configuring Firebase, including branching paths.
+1. We created [an MCP prompt](https://github.com/firebase/firebase-tools/blob/master/src/mcp/prompts/core/init.ts) that creates a guided workflow to walk the model step-by-step through configuring Firebase, including linked branching paths.
 
 We've tested out this initialization flow against several popular coding agents that support MCP Prompts -- each of them is able to understand and follow hyperlinks using our MCP server's `read_resources` tool and we've made onboarding to Firebase all the easier for it.
 
