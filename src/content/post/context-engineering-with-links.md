@@ -116,7 +116,7 @@ The results are exactly what we'd hope:
 
 So, in ~30 lines of code with very little prompting and while using a cost-effective model, we've created a system that can dynamically load and correctly apply relevant context on-demand.
 
-### Benefits of Links
+## Benefits of Links
 
 Links are a powerful tool in the context engineering toolbelt because of their *simplicity*, *flexibility*, and *efficiency*.
 
