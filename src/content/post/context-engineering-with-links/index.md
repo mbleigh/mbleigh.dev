@@ -1,7 +1,7 @@
 ---
 title: Context engineering is sleeping on the humble hyperlink
 description: The dream of hypermedia can come to fruition in a world where clients can not only parse, but navigate with intent.
-publishDate: 2025-10-02
+publishDate: 2025-10-22
 tags: ["ai", "context-engineering"]
 ---
 
