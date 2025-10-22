@@ -13,7 +13,7 @@ Context engineering is effectively the practice of finding ways to manage this t
 
 - **Retrieval Augmented Generation (RAG)**, which attempts to dynamically discover and load specific relevant context for the current query proactively.
 - **Subagents**, which encapsulate specialized instructions and tools to avoid polluting the main thread.
-- **Read Tools**, which allow the model to proactively request information that it deems relevant using tool calls.
+- **`get_*` Tools**, which allow the model to proactively request information that it deems relevant using tool calls.
 
 There's one technique that I feel is woefully underutilized by agents today: the humble hyperlink.
 
@@ -30,9 +30,23 @@ Once you found an **entrypoint** through search, you were able to *incrementally
 
 We can do the same thing with LLMs.
 
+## HATEOAS in the era of Agents
+
+The power of linked data is nothing new. Folks who have been building HTTP APIs for a long time might be familiar with [HATEOAS](https://en.wikipedia.org/wiki/HATEOAS), or "Hypertext as the Engine of Application State". Purists have long claimed that a "truly" RESTful API should be fully self-describing, such that a client can explore and interact with it knowing nothing but an entrypoint in advance, with hyperlinks providing all necessary context to discover and consume additional endpoints.
+
+This never worked in practice. Building hypertext APIs was too cumbersome and to actually consume APIs a human needed to understand the API structure in a useful manner anyway. So it was more useful just to have a "REST-ish" API and a good documentation page that humans could use. Creating "machine-readable" hyperlinked APIs that machines could navigate in theory but not in practice just wasn't practical. **LLMs change this dramatically.**
+
+When the machine can not only parse but also *navigate* the context and relevance of hyperlinks you have an actually useful paradigm: Hypertext as the Engine of **Agent** State.
+
+This does apply to the web and HTTP APIs -- I expect in the next few years we'll see a resurgence of hypermedia concepts to make APIs more self-documenting ("dump the entire API schema as OpenAPI" is a start but not really sufficient).
+
+But it also applies to local data, agent-specific data, really *any* data we want an agent to be able to discover and read.
+
+So, how do we make all of our context linkable for agents?
+
 ## One Tool to Read Them All
 
-The scaffolding required to implement a powerful link-based context system is so lightweight as to be trivial. You need only:
+The scaffolding required to implement a powerful link-based context system is lightweight enough to be trivial. You need only:
 
 1. A **tool** that accepts a list of URIs as arguments.
 1. An **entrypoint** that brings at least one URI into context.
@@ -61,6 +75,7 @@ const readResources = ai.defineTool({
 async ({ uris }) => {
   console.log("Read resources:", uris);
   return uris.map((uri) => RESOURCES[uri]
+      // wrap in XML section blocks so the model can differentiate multiple URIs
       ? `<resource uri="${uri}">\n${RESOURCES[uri]}\n</resource>`
       : `<resource uri="${uri}" error>RESOURCE NOT FOUND</resource>`,
   ).join("\n\n");
@@ -113,7 +128,7 @@ Links are a powerful tool in the context engineering toolbelt because of their *
 
 ## Agentic Linking Pattern Starter Pack
 
-Once I caught on to the utility of links, I started seeing ways to leverage them everywhere. There are many situations where having a way to offer the model "here's more data if you want it" is incredibly useful.
+Once I caught on to the utility of links, I started seeing opportunities to leverage them everywhere. There are many situations where having a way to offer the model "here's more data if you want it" is incredibly useful.
 
 Here are a few common patterns I'm starting to see/build for linked context:
 
@@ -170,20 +185,6 @@ subthings:
     name: Subthing 1
     uri: data://things/thing-1/subthings/subthing-1
 ```
-
-## HATEOAS in the era of Agents
-
-The power of linked data is nothing new. Folks who have been building HTTP APIs for a long time might be familiar with HATEOAS, or "Hypertext as the Engine of Application State". Purists long claimed that a "truly" RESTful API should be fully self-describing, such that a client can explore and interact with it knowing nothing but an entrypoint in advance, with hyperlinks providing all necessary context to discover and consume additional endpoints.
-
-This never worked in practice. Building hypertext APIs was too cumbersome and to actually consume APIs a human needed to understand the API structure in a useful manner anyway. So it was more useful just to have a "REST-ish" API and a good documentation page that humans could use. Creating "machine-readable" hyperlinked APIs that machines could navigate in theory but not in practice just wasn't practical. **LLMs change this dramatically.**
-
-When the machine can not only parse but also *navigate* the context and relevance of hyperlinks you have an actually useful paradigm: Hypertext as the Engine of **Agent** State.
-
-This does apply to the web and HTTP APIs -- I expect in the next few years we'll see a resurgence of hypermedia concepts to make APIs more self-documenting ("dump the entire API schema as OpenAPI" is a start but not really sufficient).
-
-But it also applies to local data, agent-specific data, really *any* data we want an agent to be able to discover and read.
-
-So, how do we make all of our context linkable for agents?
 
 ## MCP Resources: The future is now(ish)
 
